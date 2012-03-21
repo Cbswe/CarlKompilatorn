@@ -1,0 +1,112 @@
+Package
+	lexAndParse;
+
+Helpers
+	tab = 9;
+  	cr = 13;
+  	lf = 10;
+  	digit = ['0'..'9'];
+  	lowercase = ['a'..'z'];
+  uppercase = ['A'..'Z'];
+  letter = lowercase | uppercase;
+  idletter = letter | '_';
+  idchar  = letter | '_' | digit;
+	
+Tokens
+	
+	id = idletter idchar*;
+	
+	int_lit = '0'|['1'..'9']['0'..'9']*;
+	
+	long_lit = '0'|['1'..'9']['0'..'9']*['l'+'L']; 
+
+	eol   = cr | lf | cr lf;
+  	blank = ' ' | tab;
+	
+	l_par = '(';
+ 	r_par = ')';
+ 	l_sq = '[';
+ 	r_sq = ']';
+ 	l_m = '{';
+ 	r_m = '}';
+ 	dot = '.';
+ 	new = 'new';
+ 	exl = '!';
+ 	length = 'length';
+ 	true = 'true';
+ 	false = 'false';
+ 	this = 'this';
+ 	int = 'int';
+ 	comma = ',';
+ 	int_arr = 'int[]';
+ 	boolean = 'boolean';
+ 	if = 'if';
+ 	else = 'else';
+ 	while = 'while';
+ 	sysout = 'System.out.println';
+ 	eq = '=';
+ 	smc = ';';
+ 	public = 'public';
+ 	return = 'return';
+ 	classtag = 'class';
+ 	static = 'static';
+ 	void = 'void';
+ 	main = 'main';
+ 	string = 'String';
+			
+	op = 	'&&' |
+			'<' |
+			'+' |
+			'-' |
+			'*';
+			
+	
+	
+Ignored Tokens
+	blank, eol;
+
+Productions
+	type = 	{int_arr} int_arr |
+			{boolean} boolean |
+			{int} int |
+			{id} id;
+			
+	stmt = 	{stmts}	l_m stmt r_m |
+			{if} if l_par exp r_par [iftrue]:stmt else [iffalse]:stmt |
+			{while} while l_par exp r_par stmt |
+			{sysout} sysout l_par exp r_par smc |
+			{assign} id eq exp smc |
+			{idx_acs} id l_sq [idx]:exp r_sq eq [assgn]:exp smc;
+
+	exp = 	{int_lit} int_lit |
+			{true} true |
+			{false} false |
+			{id} id |
+			{this} this |
+			{int_arr} new int l_sq exp r_sq |
+			{constructor} new id l_par r_par |
+			{negate} exl exp |
+			{paranthesis} l_par exp r_par |
+			{op} [assgnto]:exp op [assgnfrom]:exp |
+			{l_sq} [obj]:exp l_sq [idx]:exp r_sq |
+			{length} exp dot length |
+			{method_call} exp dot id l_par explist r_par |;
+			
+	explist = exp exprest*;
+	exprest = comma exp;
+	
+	formalrest = comma type id;
+	
+	formallist = type id formalrest*;
+	
+	vardecl = type id smc;
+	
+	methoddecl = public type id l_par formallist r_par l_m vardecl* stmt* return exp smc r_m;
+	
+	classdecl = classtag id l_m  vardecl* methoddecl* r_m;
+	
+ 	mainclass = classtag [classname]:id [outer_l]:l_m public static void main l_par string [arr_l]:l_sq [arr_r]:r_sq [mainargname]:id r_par [inner_l]:l_m vardecl* stmt* [inner_r]:r_m [outer_r]:r_m;
+	
+	program = mainclass classdecl*;
+
+	
