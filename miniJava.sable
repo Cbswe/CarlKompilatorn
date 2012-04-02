@@ -9,9 +9,11 @@ Helpers
   	lowercase = ['a'..'z'];
   uppercase = ['A'..'Z'];
   letter = lowercase | uppercase;
-  idletter = letter | '_';
-  idchar  = letter | '_' | digit;
+  
   eol   = cr | lf | cr lf;
+  
+  idletter = letter | '_';
+  	idchar  = letter | '_' | digit;
 	
 Tokens
 	
@@ -54,14 +56,12 @@ Tokens
  	void = 'void';
  	main = 'main';
  	string = 'String';
-			
-	op = 	'&&' |
-			'<' |
-			'+' |
-			'-' |
-			'*'
-			;
-			
+ 	
+ 	and = '&&';
+ 	lessthan = '<';
+ 	plus = '+';
+ 	minus = '-';
+ 	times = '*';
 	
 	id = idletter idchar*;
 	
@@ -73,34 +73,34 @@ Ignored Tokens
 Productions
 	program = mainclass classdecl*;
 	
-	mainclass = classtag [classname]:id [outer_l]:l_m public static void main l_par string [arr_l]:l_sq [arr_r]:r_sq [mainargname]:id r_par [inner_l]:l_m vardecl* stmt* [inner_r]:r_m [outer_r]:r_m;
+	mainclass = classtag [classname]:identifier [outer_l]:l_m public static void main l_par string [arr_l]:l_sq [arr_r]:r_sq [mainargname]:identifier r_par [inner_l]:l_m vardecl* stmt* [inner_r]:r_m [outer_r]:r_m;
 
-	classdecl = classtag id l_m  vardecl* methoddecl* r_m;
+	classdecl = classtag identifier l_m  vardecl* methoddecl* r_m;
 	
-	vardecl = type id smc;
+	vardecl = type identifier smc;
 	
-	methoddecl = public type id l_par formallist r_par l_m vardecl* stmt* return exp smc r_m;
+	methoddecl = public type identifier l_par formallist r_par l_m vardecl* stmt* return exp smc r_m;
 	
-	formallist = type id formalrest*;
+	formallist = type identifier formalrest*;
 	
-	formalrest = comma type id;
+	formalrest = comma type identifier;
 
 	type = 	{int_arr} int_arr |
 			{boolean} boolean |
 			{int} int |
-			{id} id;
+			{id} identifier;
 			
 	stmt = 	{stmts}	l_m stmt r_m |
 			{if} if l_par exp r_par [iftrue]:stmt else [iffalse]:stmt |
 			{while} while l_par exp r_par stmt |
 			{sysout} sysout l_par exp r_par smc |
-			{assign} id eq exp smc |
-			{idx_acs} id l_sq [idx]:exp r_sq eq [assgn]:exp smc;
+			{assign} identifier eq exp smc |
+			{idx_acs} identifier l_sq [idx]:exp r_sq eq [assgn]:exp smc;
 
 	exp = 	{doop} [assgnto]:hexp op [assgnfrom]:hexp |
 			{access_idx} [obj]:hexp l_sq [idx]:hexp r_sq |
 			{getlength} hexp dot length |
-			{method_call} hexp dot id l_par explist r_par|
+			{method_call} hexp dot identifier l_par explist r_par|
 			{negate} exl exp |
 			hexp
 			;
@@ -109,10 +109,10 @@ Productions
 	hexp = {int_lit} int_lit |
 			{true} true |
 			{false} false |
-			{id} id |
+			{id} identifier |
 			{this} this |
 			{int_arr} new int l_sq exp r_sq |
-			{constructor} new id l_par r_par |
+			{constructor} new identifier l_par r_par |
 			
 			{paranthesis} l_par exp r_par
 			;
@@ -120,17 +120,14 @@ Productions
 	explist = exp exprest*;
 	exprest = comma exp;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	identifier = id;
  	
-	
+	op = 	{and} and |
+			{lessthan} lessthan |
+			{plus} plus |
+			{minus} minus |
+			{times} times
+			;
 	
 
 	
