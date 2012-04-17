@@ -406,6 +406,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAFormalrest(AFormalrest node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(FormalRest");
+    	
         inAFormalrest(node);
         if(node.getComma() != null)
         {
@@ -420,6 +424,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getIdentifier().apply(this);
         }
         outAFormalrest(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inAIntArrType(AIntArrType node)
@@ -561,10 +569,7 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getRM().apply(this);
         }
         outAStmtsStmt(node);
-        
-        indent--;
-        for(int i=0;i<indent;i++) System.out.print(" ");
-        System.out.println(")");
+
     }
 
     public void inAIfStmt(AIfStmt node)
@@ -635,6 +640,11 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAWhileStmt(AWhileStmt node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	
+    	System.out.println("(While");
+    	
         inAWhileStmt(node);
         if(node.getWhile() != null)
         {
@@ -657,6 +667,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getStmt().apply(this);
         }
         outAWhileStmt(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inASysoutStmt(ASysoutStmt node)
@@ -718,6 +732,11 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAAssignStmt(AAssignStmt node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	
+    	System.out.println("(Assign");
+    	
         inAAssignStmt(node);
         if(node.getIdentifier() != null)
         {
@@ -736,6 +755,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getSmc().apply(this);
         }
         outAAssignStmt(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inAIdxAcsStmt(AIdxAcsStmt node)
@@ -751,6 +774,11 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAIdxAcsStmt(AIdxAcsStmt node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	
+    	System.out.println("(AssignArray");
+    	
         inAIdxAcsStmt(node);
         if(node.getIdentifier() != null)
         {
@@ -781,6 +809,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getSmc().apply(this);
         }
         outAIdxAcsStmt(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inADoopExp(ADoopExp node)
@@ -817,9 +849,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         indent--;
         outADoopExp(node);
         
-        //indent--;
-        //for(int i=0;i<indent;i++) System.out.print(" ");
-        //System.out.println(")");
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inAAccessIdxExp(AAccessIdxExp node)
@@ -835,6 +867,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAAccessIdxExp(AAccessIdxExp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(AccessAtIndex");
+    	
         inAAccessIdxExp(node);
         if(node.getObj() != null)
         {
@@ -853,6 +889,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getRSq().apply(this);
         }
         outAAccessIdxExp(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inAGetlengthExp(AGetlengthExp node)
@@ -868,6 +908,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAGetlengthExp(AGetlengthExp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(ArrayLength");
+    	
         inAGetlengthExp(node);
         if(node.getHexp() != null)
         {
@@ -882,6 +926,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getLength().apply(this);
         }
         outAGetlengthExp(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inAMethodCallExp(AMethodCallExp node)
@@ -951,6 +999,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseANegateExp(ANegateExp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(Negate");
+    	
         inANegateExp(node);
         if(node.getExl() != null)
         {
@@ -961,6 +1013,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getExp().apply(this);
         }
         outANegateExp(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inAExp(AExp node)
@@ -1026,12 +1082,20 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseATrueHexp(ATrueHexp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(TrueLiteral");
+    	
         inATrueHexp(node);
         if(node.getTrue() != null)
         {
             node.getTrue().apply(this);
         }
         outATrueHexp(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inAFalseHexp(AFalseHexp node)
@@ -1047,12 +1111,20 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAFalseHexp(AFalseHexp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(FalseLiteral");
+    	
         inAFalseHexp(node);
         if(node.getFalse() != null)
         {
             node.getFalse().apply(this);
         }
         outAFalseHexp(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inAIdHexp(AIdHexp node)
@@ -1074,6 +1146,7 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getIdentifier().apply(this);
         }
         outAIdHexp(node);
+        
     }
 
     public void inAThisHexp(AThisHexp node)
@@ -1089,12 +1162,20 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAThisHexp(AThisHexp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(This");
+    	
         inAThisHexp(node);
         if(node.getThis() != null)
         {
             node.getThis().apply(this);
         }
         outAThisHexp(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inAIntArrHexp(AIntArrHexp node)
@@ -1110,6 +1191,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAIntArrHexp(AIntArrHexp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(NewInt[ " + node + "]");
+    	
         inAIntArrHexp(node);
         if(node.getNew() != null)
         {
@@ -1132,6 +1217,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getRSq().apply(this);
         }
         outAIntArrHexp(node);
+        
+        indent--;
+        for(int i=0;i<indent;i++) System.out.print(" ");
+        System.out.println(")");
     }
 
     public void inAConstructorHexp(AConstructorHexp node)
@@ -1189,6 +1278,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAParanthesisHexp(AParanthesisHexp node)
     {
+    	//for(int i=0;i<indent;i++) System.out.print(" ");
+    	//indent++;
+    	//System.out.println("(");
+    	
         inAParanthesisHexp(node);
         if(node.getLPar() != null)
         {
@@ -1300,6 +1393,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAAndOp(AAndOp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(And");
+    	
         inAAndOp(node);
         if(node.getAnd() != null)
         {
@@ -1350,6 +1447,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAPlusOp(APlusOp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(Plus");
+    	
         inAPlusOp(node);
         if(node.getPlus() != null)
         {
@@ -1371,6 +1472,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseAMinusOp(AMinusOp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(Minus");
+    	
         inAMinusOp(node);
         if(node.getMinus() != null)
         {
@@ -1392,6 +1497,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     @Override
     public void caseATimesOp(ATimesOp node)
     {
+    	for(int i=0;i<indent;i++) System.out.print(" ");
+    	indent++;
+    	System.out.println("(Times");
+    	
         inATimesOp(node);
         if(node.getTimes() != null)
         {
